@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import{MatDatepickerModule,MatNativeDateModule }from '@angular/material';
 
 
 @NgModule({
@@ -31,6 +32,8 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    MatNativeDateModule ,
+    MatDatepickerModule,
     MatSelectModule,
     MatCheckboxModule,
     MatChipsModule
