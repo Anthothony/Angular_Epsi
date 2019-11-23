@@ -1,2 +1,5 @@
 <app-toplayer></app-toplayer>
-<app-personnes-data></app-personnes-data>
+
+<span routerLink="/form" routerLinkActive="active"></span>
+<router-outlet></router-outlet>
+<button type="button" [hidden]="clicked" (click)="actionMethod(); clicked = true;"  routerLink="/CV" routerLinkActive="active">VALIDER LE CV PLZ</button>

@@ -12,23 +12,32 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule  } from '@angular/common/http';
 import{MatDatepickerModule,MatNativeDateModule }from '@angular/material';
-
-
+import { ReverseStr } from './customPipe.pipe';
+import { CVComponent } from './cv/cv.component';
+import { RouterModule, Routes } from '@angular/router';
+//import {DataService} from './data.service';
+const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
+  { path: 'CV', component: CVComponent },
+  {path:'',component:PersonnesDataComponent}]
 @NgModule({
   declarations: [
     AppComponent,
+    CVComponent, 
     ToplayerComponent,
+    ReverseStr,
+   // DataService,
     PersonnesDataComponent
     
   ],
   imports: [
+    RouterModule.forRoot(appRoutes,{enableTracing:true}),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     MatInputModule,
     MatButtonModule,

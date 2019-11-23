@@ -8,4 +8,8 @@ import {NgForm} from '@angular/forms';
 })
 export class AppComponent {
   title = 'test';
+  clicked = false;
+  actionMethod() {
+    this.clicked=true;
+  }
 }

@@ -10,15 +10,21 @@
         <span *ngIf="myForm.get('mail').errors?.validateEmail && (myForm.get('mail').touched || myForm.get('mail').dirty)" class="alert alert-danger">
             Email expression is invalid
       </span>
+      <br>
 
-
-        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('nom').errors && (myForm.get('nom').touched || myForm.get('nom').dirty)}">
-                <label matLabel for="nom">Nom</label> 
-            <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
+        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('prenom').errors && (myForm.get('prenom').touched || myForm.get('prenom').dirty)}">
+                <label matLabel for="prenom">prenom</label> 
+            <input id="prenom" matInput formControlName="prenom" type="text" class="form-control " name="prenom" required >
         </mat-form-field>            
-        <span *ngIf="myForm.get('nom').errors?.required  && (myForm.get('nom').touched || myForm.get('nom').dirty)" class="alert alert-danger">
-            Name is required.
+        <span *ngIf="myForm.get('prenom').errors?.required  && (myForm.get('prenom').touched || myForm.get('prenom').dirty)" class="alert alert-danger">
+                prenom is required.
       </span>
+      <br>
+      <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('nom').errors && (myForm.get('nom').touched || myForm.get('nom').dirty)}">
+            <label matLabel for="nom">Nom</label> 
+        <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
+    </mat-form-field>            
+    
     
         <div formArrayName="skills">
     
@@ -33,19 +39,21 @@
                 <mat-form-field class="xs">
                     <input matInput placeholder="lvl" formControlName="lvl">
                 </mat-form-field>
-    
+                
                 <button mat-raised-button color="warn" (click)="deleteSkill()">Delete</button>
     
             </div>
     
         </div>
-    
-        <button mat-raised-button color="primary" (click)="addskill()">Add skill</button>
-        
+        <span *ngIf="myForm.get('skills').errors?.validateSkillNumber " class="alert alert-danger">
+            Name is required.    
+            <button mat-raised-button color="primary" (click)="addskill()">Add skill</button>
+        </span>
         <input [matDatepicker]="myDatepicker" disabled id="datenaisance" name="datenaisance" formControlName="datenaisance"  class="form-control" required>
         <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
-        <p> date  = {{myForm.get('datenaisance').value|json}}</p>
-    
+        <!--<p> date  = {{myForm.get('datenaisance').value|  date| uppercase| reverseStr|json}}</p>-->
+       <!-- <button (click)="save();">SAVE</button>-->
+
     
 </form>
