@@ -1,0 +1,39 @@
+<form [formGroup]="myForm" >
+
+        Value: {{ myForm.value | json }}
+    
+        <hr>
+    
+        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('nom').errors && (myForm.get('nom').touched || myForm.get('nom').dirty)}">
+            <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
+
+        </mat-form-field>            
+        <span *ngIf="myForm.get('nom').errors?.required  && (myForm.get('nom').touched || myForm.get('nom').dirty)" class="alert alert-danger">
+            Name is required.
+      </span>
+    
+        <div formArrayName="skills">
+    
+            <div *ngFor="let skill of skillsForms.controls; let i=index" [formGroupName]="i">
+    
+    
+                <mat-form-field class="xs">
+                    <label></label>
+                    <input matInput  placeholder="name" formControlName="name">
+                </mat-form-field>
+    
+                <mat-form-field class="xs">
+                    <input matInput placeholder="lvl" formControlName="lvl">
+                </mat-form-field>
+    
+                <button mat-raised-button color="warn" (click)="deleteSkill()">Delete</button>
+    
+            </div>
+    
+        </div>
+    
+        <button mat-raised-button color="primary" (click)="addskill()">Add skill</button>
+    
+    
+    
+    </form>
