@@ -15,7 +15,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule  } from '@angular/common/http';
 import{MatDatepickerModule,MatNativeDateModule }from '@angular/material';
 import { ReverseStr } from './customPipe.pipe';
-import { CVComponent } from './cv/cv.component';
+import { CVComponent } from '../cv/cv.component';
 import { RouterModule, Routes } from '@angular/router';
 //import {DataService} from './data.service';
 const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
@@ -32,7 +32,7 @@ const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
     
   ],
   imports: [
-    RouterModule.forRoot(appRoutes,{enableTracing:true}),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

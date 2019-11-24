@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import{FormBuilder,FormGroup,FormArray, FormControl, Validators,FormsModule } from '@angular/forms'
-import {NgForm} from '@angular/forms';
-//import { DataService } from '../data.service';
+import { EventEmitter } from '@angular/core';
+import { CVComponent } from '../../cv/cv.component';
+import { JsonPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-personnes-data',
@@ -10,7 +12,8 @@ import {NgForm} from '@angular/forms';
 })
 export class PersonnesDataComponent implements OnInit {
   myForm : FormGroup;
-  message : PersonnesDataComponent;
+  @Output() messageEvent = new EventEmitter<FormGroup>();
+  parentMessage  : FormGroup;
   constructor(private fb : FormBuilder) { }
 
   ngOnInit() {
@@ -43,8 +46,10 @@ export class PersonnesDataComponent implements OnInit {
     this.skillsForms.removeAt(i)
   }
   save(){
-    
-    //this.data.changeMessage(this)
+    console.log("debugemit")
+    CVComponent.myForm=this.myForm;
+    console.log(CVComponent.myForm.value )
+    this.messageEvent.emit(this.myForm)
   }
 
 }
@@ -66,7 +71,7 @@ function validateEmail(c: FormControl) {
 
 function validateSkillNumber(c:FormControl)
 {
-  return c.value.length<3 ? null : {
+  return c.value.length>3 ? null : {
     validateEmail: {
       valid: false
     }
