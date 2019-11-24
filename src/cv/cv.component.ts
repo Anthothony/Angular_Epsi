@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PersonnesDataComponent } from '../app/personnes-data/personnes-data.component';
 //import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-cv',
@@ -10,12 +10,13 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class CVComponent  implements OnInit {
  public static myForm : FormGroup
+ imgURL :any
   @Input() childMessage: FormGroup;
-  //message:PersonnesDataComponent;
   constructor() { }
 
   ngOnInit() {
     this.childMessage=CVComponent.myForm
+    //this.data.currentMessage.subscribe(message => this.imgURL = message)
   }
 
 }

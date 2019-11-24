@@ -1,7 +1,6 @@
 <form [formGroup]="myForm" >
-
-        Value: {{ myForm.value | json }}
-    
+    {{myForm.value |json}}
+   
         <hr>
         <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('mail').errors && (myForm.get('mail').touched || myForm.get('mail').dirty)}">
                 <label matLabel for="mail">Email</label> 
@@ -11,6 +10,14 @@
             Email expression is invalid
       </span>
       <br>
+      <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('cp').errors && (myForm.get('cp').touched || myForm.get('cp').dirty)}">
+        <label matLabel for="cp">Code Postal</label> 
+            <input id="cp" matInput formControlName="cp" type="text" class="form-control " name="cp" required ngmModel CPvalid>
+        </mat-form-field>            
+        <span *ngIf="myForm.get('cp').errors?.CPvalid && (myForm.get('cp').touched || myForm.get('cp').dirty)" class="alert alert-danger">
+            cp expression is invalid
+        </span>
+        <br>
 
         <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('prenom').errors && (myForm.get('prenom').touched || myForm.get('prenom').dirty)}">
                 <label matLabel for="prenom">prenom</label> 
@@ -24,6 +31,9 @@
             <label matLabel for="nom">Nom</label> 
         <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
     </mat-form-field>            
+    
+    <input type="file"  id="photo" #file formControlName="photo"  class="form-control " name="photo"  (change)="preview(file.files)"/>
+    <img [src]="imgURL" height="200" *ngIf="imgURL">
     
     
         <div formArrayName="skills">
@@ -45,14 +55,61 @@
             </div>
     
         </div>
-
-            <button mat-raised-button color="primary" (click)="addskill()">Add skill</button>
-
+        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addskill()">Add skill</button>
+        <span *ngIf="myForm.get('skills').errors?.validateSkillNumber && show" class="alert alert-danger">
+            pas plus de 3 exp               
+        </span>
+        <div formArrayName="exp">
+    
+            <div *ngFor="let exp of expForms.controls; let i=index" [formGroupName]="i">
+    
+    
+                <mat-form-field class="xs">
+                    <label></label>
+                    <input matInput  placeholder="name" formControlName="name">
+                </mat-form-field>
+    
+                <mat-form-field class="xs">
+                    <input matInput placeholder="lvl" formControlName="lvl">
+                </mat-form-field>
+                
+                <button mat-raised-button color="warn" (click)="deleteexp()">Delete</button>
+    
+            </div>
+    
+        </div>
+        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addexp()">Add exp</button>
+        <span *ngIf="myForm.get('exp').errors?.validateSkillNumber && show" class="alert alert-danger">
+            pas plus de 3 exp               
+        </span>
+        <div formArrayName="diplomes">
+    
+            <div *ngFor="let diplomes of diplomesForms.controls; let i=index" [formGroupName]="i">
+    
+    
+                <mat-form-field class="xs">
+                    <label></label>
+                    <input matInput  placeholder="name" formControlName="name">
+                </mat-form-field>
+    
+                <mat-form-field class="xs">
+                    <input matInput placeholder="lvl" formControlName="lvl">
+                </mat-form-field>
+                
+                <button mat-raised-button color="warn" (click)="deletediplomes()">Delete</button>
+    
+            </div>
+    
+        </div>
+        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="adddiplomes()">Add exp</button>
+        <span *ngIf="myForm.get('diplomes').errors?.validateSkillNumber && show" class="alert alert-danger">
+            pas plus de 3 diplomes               
+        </span>
         <input [matDatepicker]="myDatepicker" disabled id="datenaisance" name="datenaisance" formControlName="datenaisance"  class="form-control" required>
         <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
-        <!--<p> date  = {{myForm.get('datenaisance').value|  date| uppercase| reverseStr|json}}</p>-->
-        <button (click)="save();">SAVE</button>
+        <button (click)="save();" [hidden]="clicked" (click)="actionMethod(); clicked = true;"  routerLink="/CV" routerLinkActive="active" type="submit" [disabled]="!myForm.valid">SAVE</button>
+
 
     
 </form>

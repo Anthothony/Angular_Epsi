@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+//import {DataService} from './data.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToplayerComponent } from './toplayer/toplayer.component';
@@ -17,17 +17,18 @@ import{MatDatepickerModule,MatNativeDateModule }from '@angular/material';
 import { ReverseStr } from './customPipe.pipe';
 import { CVComponent } from '../cv/cv.component';
 import { RouterModule, Routes } from '@angular/router';
-//import {DataService} from './data.service';
+
 const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
   { path: 'CV', component: CVComponent },
   {path:'',component:PersonnesDataComponent}]
 @NgModule({
   declarations: [
     AppComponent,
+   
     CVComponent, 
     ToplayerComponent,
     ReverseStr,
-   // DataService,
+
     PersonnesDataComponent
     
   ],
@@ -36,6 +37,7 @@ const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+   // DataService,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
