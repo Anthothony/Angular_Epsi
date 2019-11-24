@@ -1,0 +1,21 @@
+button{
+  margin: 2em;
+}
+.colonnes1{
+float:left;
+width: 50%;
+}
+.colonnes2{
+float:right;
+width: 50%;
+}
+
+.sauvegarder {
+  position: relative;
+  display: block;
+  margin: 30px auto;
+  padding: 0;
+  outline: none;
+  background-color: #2ecc71;
+  color: #ecf0f1;
+}

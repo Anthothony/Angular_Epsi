@@ -7,6 +7,13 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  navLinks = [
+    { path: 'personnes-data', label:'Home'},
+    { path: 'about', label:'About'},
+  ];
+  constructor(){}
+
   title = 'test';
   clicked = false;
   actionMethod() {

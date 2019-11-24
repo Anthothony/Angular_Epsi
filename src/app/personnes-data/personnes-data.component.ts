@@ -17,6 +17,7 @@ export class PersonnesDataComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.fb.group({
+      poste:['', Validators.required],
       cp:['',CPvalid],
       photo:[File],
       nom:['',Validators.required],
@@ -33,22 +34,22 @@ export class PersonnesDataComponent implements OnInit {
   public imagePath;
   imgURL: any;
   public message: string;
- 
+
   preview(files) {
     if (files.length === 0)
       return;
- 
+
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
     }
     //this.newMessage();
   }
@@ -71,7 +72,7 @@ export class PersonnesDataComponent implements OnInit {
     {
     const diplomes = this.fb.group({
     name :[],
-    lvl : []  
+    lvl : []
   })
   this.diplomesForms.push(diplomes);
 }
@@ -82,7 +83,7 @@ export class PersonnesDataComponent implements OnInit {
     {
     const skills = this.fb.group({
     name :[],
-    lvl : []  
+    lvl : []
   })
   this.skillsForms.push(skills);
 }
@@ -93,7 +94,7 @@ addexp()
   {
   const exp = this.fb.group({
   name :[],
-  lvl : []  
+  lvl : []
 })
 this.expForms.push(exp);
 }
@@ -112,14 +113,17 @@ public findInvalidControls() {
 deletediplomes(i){
   this.diplomesForms.removeAt(i)
 }
-deleteSkill(i){
-  this.skillsForms.removeAt(i)
+deleteSkill(j){
+  this.skillsForms.removeAt(j)
 }
-deleteexp(i){
-  this.expForms.removeAt(i)
+deleteexp(k){
+  this.expForms.removeAt(k)
 }
 save(){
   CVComponent.myForm=this.myForm;
+  CVComponent.myForm.get('skills').setValue=this.myForm.get('skills').value;
+  CVComponent.myForm.get('exp').setValue=this.myForm.get('exp').value;
+  CVComponent.myForm.get('diplomes').setValue=this.myForm.get('diplomes').value;
 }
 
 }
@@ -131,7 +135,7 @@ function isDateNull(c:FormControl){
 
 function validateEmail(c: FormControl) {
   let EMAIL_REGEXP =/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-  
+
   return EMAIL_REGEXP.test(c.value) ? null : {
     validateEmail: {
       valid: false
@@ -140,7 +144,7 @@ function validateEmail(c: FormControl) {
 }
 function CPvalid(c: FormControl) {
   let CP_REGEXP =/^\d{2}[ ]?\d{3}$/;
-  
+
   return CP_REGEXP.test(c.value) ? null : {
     CPvalid: {
       valid: false

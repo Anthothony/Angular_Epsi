@@ -1,6 +1,93 @@
-
-<p>cv works!</p>
-
-Say {{ childMessage.value |json }}
 <img [src]="imgURL" height="200" *ngIf="imgURL">
 
+<div id="cv" class="instaFade">
+  <div class="mainDetails">
+      <div id="headshot" class="quickFade">
+        <img src="/headshot.jpg" />
+      </div>
+    <div id="name">
+        <h1 class="quickFade delayTwo">{{ childMessage.get("poste").value }}</h1>
+    </div>
+    <br>
+    <div id="contactDetails" class="quickFade delayFour">
+      <ul>
+        <li>email: <a>{{ childMessage.get("mail").value }}</a></li>
+        <li> <a>{{ childMessage.get("nom").value | uppercase }} {{ childMessage.get("prenom").value |firstcharcateruppercase }} </a></li>
+        <li> Date de naissance: <a>{{ childMessage.get("datenaisance").value | date:'mediumDate'}}  </a></li>
+        <li>Code postal: <a>{{ childMessage.get("cp").value }}</a></li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="mainArea" class="quickFade delayFive">
+    <section>
+        <div class="clear"></div>
+    </section>
+
+    <section>
+        <div class="sectionTitle">
+            <h1>Compétences</h1>
+        </div>
+
+          <div class="sectionContent">
+              <ul>
+                <form [formGroup]="childMessage" >
+                <div formArrayName="skills">
+              <div *ngFor="let skill of skillsForms.controls; let j=index" [formGroupName]="j">
+                <li>
+                  {{getSkillname(j)}}
+                  {{getskilllvl(j)}}
+                  </li>
+                </div>
+                </div>
+                </form>
+              </ul>
+          </div>
+        <div class="clear"></div>
+    </section>
+
+    <section>
+        <div class="sectionTitle">
+            <h1>Experiences</h1>
+        </div>
+        <div class="sectionContent">
+
+              <form [formGroup]="childMessage" >
+              <div formArrayName="exp">
+
+              <div *ngFor="let exp of expForms.controls; let k=index" [formGroupName]="k">
+                <article>
+                <h3>{{getexpname(k)}}</h3>
+                <p>{{getxplvl(k)}}</p>
+                </article>
+              </div>
+              </div>
+              </form>
+
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section>
+        <div class="sectionTitle">
+            <h1>Diplôme</h1>
+        </div>
+
+        <div class="sectionContent">
+            <ul>
+              <form [formGroup]="childMessage" >
+              <div formArrayName="diplomes">
+
+              <div *ngFor="let diplomes of diplomesForms.controls; let i=index" [formGroupName]="i">
+                {{getdiplomesname(i)}}
+                {{getdiplomeslvl(i)}}
+              </div>
+              </div>
+              </form>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+</div>
+</div>

@@ -1,115 +1,136 @@
 <form [formGroup]="myForm" >
-    {{myForm.value |json}}
-   
-        <hr>
-        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('mail').errors && (myForm.get('mail').touched || myForm.get('mail').dirty)}">
-                <label matLabel for="mail">Email</label> 
-            <input id="mail" matInput formControlName="mail" type="text" class="form-control " name="mail" required ngmModel validateEmail>
-        </mat-form-field>            
-        <span *ngIf="myForm.get('mail').errors?.validateEmail && (myForm.get('mail').touched || myForm.get('mail').dirty)" class="alert alert-danger">
-            Email expression is invalid
-      </span>
-      <br>
-      <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('cp').errors && (myForm.get('cp').touched || myForm.get('cp').dirty)}">
-        <label matLabel for="cp">Code Postal</label> 
-            <input id="cp" matInput formControlName="cp" type="text" class="form-control " name="cp" required ngmModel CPvalid>
-        </mat-form-field>            
-        <span *ngIf="myForm.get('cp').errors?.CPvalid && (myForm.get('cp').touched || myForm.get('cp').dirty)" class="alert alert-danger">
-            cp expression is invalid
+
+          <hr>
+            <div class="colonnes1">
+
+            <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('poste').errors && (myForm.get('poste').touched || myForm.get('poste').dirty)}">
+                    <label matLabel for="mail">Intutulé du poste*</label>
+                <input id="mail" matInput formControlName="poste" type="text" class="form-control " name="poste" required ngmModel validateEmail>
+            </mat-form-field>
+            <span *ngIf="myForm.get('poste').errors?.required && (myForm.get('poste').touched || myForm.get('poste').dirty)" class="alert alert-danger">
+              L'intituler est requis
+          </span>
+            <br>
+          <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('mail').errors && (myForm.get('mail').touched || myForm.get('mail').dirty)}">
+                  <label matLabel for="mail">Email*</label>
+              <input id="mail" matInput formControlName="mail" type="text" class="form-control " name="mail" required ngmModel validateEmail>
+          </mat-form-field>
+          <span *ngIf="myForm.get('mail').errors?.validateEmail && (myForm.get('mail').touched || myForm.get('mail').dirty)" class="alert alert-danger">
+              Email doit etre sous forme: exemple@info.fr
         </span>
         <br>
+        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('cp').errors && (myForm.get('cp').touched || myForm.get('cp').dirty)}">
+          <label matLabel for="cp">Code Postal*</label>
+              <input id="cp" matInput formControlName="cp" type="text" class="form-control " name="cp" required ngmModel CPvalid>
+          </mat-form-field>
+          <span *ngIf="myForm.get('cp').errors?.CPvalid && (myForm.get('cp').touched || myForm.get('cp').dirty)" class="alert alert-danger">
+             Le code postal est sous forme 34 ou 34000
+          </span>
+          <br>
 
-        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('prenom').errors && (myForm.get('prenom').touched || myForm.get('prenom').dirty)}">
-                <label matLabel for="prenom">prenom</label> 
-            <input id="prenom" matInput formControlName="prenom" type="text" class="form-control " name="prenom" required >
-        </mat-form-field>            
-        <span *ngIf="myForm.get('prenom').errors?.required  && (myForm.get('prenom').touched || myForm.get('prenom').dirty)" class="alert alert-danger">
-                prenom is required.
-      </span>
+          <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('prenom').errors && (myForm.get('prenom').touched || myForm.get('prenom').dirty)}">
+                  <label matLabel for="prenom">prenom*</label>
+              <input id="prenom" matInput formControlName="prenom" type="text" class="form-control " name="prenom" required >
+          </mat-form-field>
+          <span *ngIf="myForm.get('prenom').errors?.required  && (myForm.get('prenom').touched || myForm.get('prenom').dirty)" class="alert alert-danger">
+                  Le prénom est requis
+        </span>
+        <br>
+        <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('nom').errors && (myForm.get('nom').touched || myForm.get('nom').dirty)}">
+              <label matLabel for="nom">Nom*</label>
+          <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
+      </mat-form-field>
+      <span *ngIf="myForm.get('nom').errors?.required && (myForm.get('nom').touched || myForm.get('nom').dirty)" class="alert alert-danger">
+        Le nom est requis
+    </span>
+    <br>
+    <label>Date de naissance*: </label>
+      <input [matDatepicker]="myDatepicker" disabled id="datenaisance" name="datenaisance" formControlName="datenaisance"  class="form-control" required>
+      <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
       <br>
-      <mat-form-field class="form-group" [ngClass]="{'has_error':myForm.get('nom').errors && (myForm.get('nom').touched || myForm.get('nom').dirty)}">
-            <label matLabel for="nom">Nom</label> 
-        <input id="nom" matInput formControlName="nom" type="text" class="form-control " name="nom" required >
-    </mat-form-field>            
-    
-    <input type="file"  id="photo" #file formControlName="photo"  class="form-control " name="photo"  (change)="preview(file.files)"/>
-    <img [src]="imgURL" height="200" *ngIf="imgURL">
-    
-    
-        <div formArrayName="skills">
-    
-            <div *ngFor="let skill of skillsForms.controls; let i=index" [formGroupName]="i">
-    
-    
-                <mat-form-field class="xs">
-                    <label></label>
-                    <input matInput  placeholder="name" formControlName="name">
-                </mat-form-field>
-    
-                <mat-form-field class="xs">
-                    <input matInput placeholder="lvl" formControlName="lvl">
-                </mat-form-field>
-                
-                <button mat-raised-button color="warn" (click)="deleteSkill()">Delete</button>
-    
-            </div>
-    
-        </div>
-        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addskill()">Add skill</button>
-        <span *ngIf="myForm.get('skills').errors?.validateSkillNumber && show" class="alert alert-danger">
-            pas plus de 3 exp               
-        </span>
-        <div formArrayName="exp">
-    
-            <div *ngFor="let exp of expForms.controls; let i=index" [formGroupName]="i">
-    
-    
-                <mat-form-field class="xs">
-                    <label></label>
-                    <input matInput  placeholder="name" formControlName="name">
-                </mat-form-field>
-    
-                <mat-form-field class="xs">
-                    <input matInput placeholder="lvl" formControlName="lvl">
-                </mat-form-field>
-                
-                <button mat-raised-button color="warn" (click)="deleteexp()">Delete</button>
-    
-            </div>
-    
-        </div>
-        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addexp()">Add exp</button>
-        <span *ngIf="myForm.get('exp').errors?.validateSkillNumber && show" class="alert alert-danger">
-            pas plus de 3 exp               
-        </span>
-        <div formArrayName="diplomes">
-    
-            <div *ngFor="let diplomes of diplomesForms.controls; let i=index" [formGroupName]="i">
-    
-    
-                <mat-form-field class="xs">
-                    <label></label>
-                    <input matInput  placeholder="name" formControlName="name">
-                </mat-form-field>
-    
-                <mat-form-field class="xs">
-                    <input matInput placeholder="lvl" formControlName="lvl">
-                </mat-form-field>
-                
-                <button mat-raised-button color="warn" (click)="deletediplomes()">Delete</button>
-    
-            </div>
-    
-        </div>
-        <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="adddiplomes()">Add exp</button>
-        <span *ngIf="myForm.get('diplomes').errors?.validateSkillNumber && show" class="alert alert-danger">
-            pas plus de 3 diplomes               
-        </span>
-        <input [matDatepicker]="myDatepicker" disabled id="datenaisance" name="datenaisance" formControlName="datenaisance"  class="form-control" required>
-        <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
-        <button (click)="save();" [hidden]="clicked" (click)="actionMethod(); clicked = true;"  routerLink="/CV" routerLinkActive="active" type="submit" [disabled]="!myForm.valid">SAVE</button>
+      <label>* : Champs obligatoire</label>
+    <br>
+      <!-- <input type="file"  id="photo" #file formControlName="photo"  class="form-control " name="photo"  (change)="preview(file.files)"/>
+      <img [src]="imgURL" height="200" *ngIf="imgURL"> -->
+
+      <button class="sauvegarder" (click)="save();" [hidden]="clicked" (click)="actionMethod(); clicked = true;"  routerLink="/CV" routerLinkActive="active" type="submit" [disabled]="!myForm.valid">Valider</button>
+
+      </div>
+
+    <div class="colonnes2">
+      <div formArrayName="skills">
+
+                 <div *ngFor="let skill of skillsForms.controls; let j=index" [formGroupName]="j">
 
 
-    
+                     <mat-form-field class="xs">
+                         <label></label>
+                         <input matInput  placeholder="Competence" formControlName="name">
+                     </mat-form-field>
+
+                     <mat-form-field class="xs">
+                         <input matInput placeholder="Niveau" formControlName="lvl">
+                     </mat-form-field>
+
+                     <button mat-raised-button color="warn" (click)="deleteSkill(j)">Suprimmer compétences</button>
+
+                 </div>
+
+  <br>
+          </div>
+          <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addskill()">Ajouter une compétence</button>
+          <span *ngIf="myForm.get('skills').errors?.validateSkillNumber && show" class="alert alert-danger">
+              Pas plus de 3 compétences
+          </span>
+
+          <div formArrayName="exp">
+
+              <div *ngFor="let exp of expForms.controls; let k=index" [formGroupName]="k">
+
+
+                  <mat-form-field class="xs">
+                      <label></label>
+                      <input matInput  placeholder="Titre" formControlName="name">
+                  </mat-form-field>
+
+                  <mat-form-field class="xs">
+                      <input matInput placeholder="Description" formControlName="lvl">
+                  </mat-form-field>
+
+                  <button mat-raised-button color="warn" (click)="deleteexp(k)">Suprimmer expériences</button>
+
+              </div>
+  <br>
+          </div>
+          <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="addexp()">Ajouter une expérience</button>
+          <span *ngIf="myForm.get('exp').errors?.validateSkillNumber && show" class="alert alert-danger">
+              Pas plus de 3 expériences
+          </span>
+          <div formArrayName="diplomes">
+
+              <div *ngFor="let diplomes of diplomesForms.controls; let i=index" [formGroupName]="i">
+
+
+                  <mat-form-field class="xs">
+                      <label></label>
+                      <input matInput  placeholder="Nom diplome" formControlName="name">
+                  </mat-form-field>
+
+                  <mat-form-field class="xs">
+                      <input matInput placeholder="Ville" formControlName="lvl">
+                  </mat-form-field>
+
+                  <button mat-raised-button color="warn" (click)="deletediplomes(i)">Supprimer diplomes</button>
+
+              </div>
+  <br>
+          </div>
+          <button mat-raised-button color="primary" (click)="findInvalidControls()" (click)="show = !show" (click)="adddiplomes()">Ajouter un diplôme</button>
+          <span *ngIf="myForm.get('diplomes').errors?.validateSkillNumber && show" class="alert alert-danger">
+              Pas plus de 3 diplomes
+          </span>
+  <br>
+  </div>
+
 </form>

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 //import {DataService} from './data.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ToplayerComponent } from './toplayer/toplayer.component';
 import { PersonnesDataComponent } from './personnes-data/personnes-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -15,22 +14,26 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule  } from '@angular/common/http';
 import{MatDatepickerModule,MatNativeDateModule }from '@angular/material';
 import { ReverseStr } from './customPipe.pipe';
+import { FirstCharacterUpperCase } from './custompipes.pipe';
 import { CVComponent } from '../cv/cv.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
+import { MatTabsModule } from '@angular/material';
 
-const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
+const appRoutes: Routes = [
   { path: 'CV', component: CVComponent },
-  {path:'',component:PersonnesDataComponent}]
+  { path:'about', component: AboutComponent },
+  { path: 'personnes-data', component: PersonnesDataComponent },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
-   
-    CVComponent, 
-    ToplayerComponent,
+    CVComponent,
     ReverseStr,
-
-    PersonnesDataComponent
-    
+    PersonnesDataComponent,
+    FirstCharacterUpperCase,
+   AboutComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -47,7 +50,8 @@ const appRoutes: Routes = [{path :'form',component:PersonnesDataComponent},
     MatDatepickerModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
